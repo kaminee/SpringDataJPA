@@ -1,0 +1,118 @@
+<h1>company List page</h1>
+<!-- {{shopList}} -->
+
+    <style>
+      .name.ng-valid {
+          background-color: lightgreen;
+      }
+      .name.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+      .name.ng-dirty.ng-invalid-minlength {
+          background-color: yellow;
+      }
+
+
+    </style>
+
+      <div class="generic-container">
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead">Company Registration Form </span></div>
+              <div class="formcontainer">
+                  <form ng-submit="sctrl.submit()" name="myForm" class="form-horizontal">
+                      <input type="hidden" ng-model="sctrl.company.id" />
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file">Name</label>
+                              <div class="col-md-7">
+                                  <input type="text" ng-model="sctrl.company.name" name="sname" class="name form-control input-sm" placeholder="Enter your companyName" required ng-minlength="3"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.sname.$error.required">This is a required field</span>
+                                      <span ng-show="myForm.sname.$error.minlength">Minimum length required is 3</span>
+                                      <span ng-show="myForm.sname.$invalid">This field is invalid </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                        
+                      
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file">PAN number</label>
+                              <div class="col-md-7">
+                                  <input type="text" ng-model="sctrl.company.panNumber" class="form-control input-sm" placeholder="Enter your PAN Number [This field is validation free]"/>
+                              </div>
+                          </div>
+                      </div>
+
+						<!-- <div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="file">Active</label>
+								<div class="col-md-7">
+									<input type="radio" ng-model="sctrl.company.active" name="active"
+										class="active form-control input-sm"
+										placeholder="Enter your Email" required />
+		
+								</div>
+							</div> -->
+					<div class="row">
+					<div class="form-group col-md-12">
+					 <label class="col-md-2 control-lable" for="file">company Status</label>
+						<div class="radio">
+							<label> <input type="radio" name="sactive"
+								value="true" ng-model="sctrl.company.active"> Active
+							</label>
+						</div>
+						<div class="radio">
+							<label> <input type="radio" name="active" value="false"
+								ng-model="sctrl.company.active"> DeActive
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+                          <div class="form-actions floatRight">
+                              <input type="submit"  value="{{!sctrl.company.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
+                              <button type="button" ng-click="sctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>
+                          </div>
+                     </div>
+                        
+                     </form>
+                     </div>
+                     </div>
+                     
+              
+             
+              
+              <div class="panel-heading"><span class="lead">List of companys </span></div>
+          
+              <div class="tablecontainer">
+             
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>ID.</th>
+                              <th>Name</th>
+                              <th>PAN Number</th>
+                              <th>Active</th>
+                              <th width="20%"></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                     
+                          <tr ng-repeat="s in companyList">
+                       
+                              <td><span ng-bind="s.id"></span></td>
+                              <td><span ng-bind="s.name"></span></td>
+                              <td><span ng-bind="s.panNumber"></span></td>
+                              <td><span ng-bind="s.active"></span></td>
+                              <td>
+                              <button type="button" ng-click="sctrl.edit(s.id)" class="btn btn-success custom-width">Edit</button>  <button type="button" ng-click="sctrl.remove(s.id)" class="btn btn-danger custom-width">Remove</button>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+         
+ </div>
