@@ -42,7 +42,7 @@ public class EmpController {
 	      return "employee";
 	   }
 	 
-	  @RequestMapping(value = "", method = RequestMethod.POST)
+	  @RequestMapping(value = "create", method = RequestMethod.POST)
 	    public ResponseEntity<Void> createUser(@RequestBody Employee employee,    UriComponentsBuilder ucBuilder) {
 	        System.out.println("Creating Emp " + employee.getFirstname());
 	 

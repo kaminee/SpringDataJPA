@@ -53,7 +53,7 @@ angular.module('myUserApp').controller('EmployeeController', ['$scope', 'Employe
     function submit() {
         console.log('company C with id ', self.emp.employeeId+"\t name==>"+self.emp.firstname);
 
-        if(self.company.id===null){
+        if(self.emp.employeeId===null){
             console.log('Saving New company', self.emp);
             createEmployee(self.emp);
         }else{
@@ -104,8 +104,15 @@ angular.module('myUserApp').controller('EmployeeController', ['$scope', 'Employe
         for(var i = 0; i < self.emps.length; i++){
         	console.log("active==="+self.emps[i].firstname);
             if(self.emps[i].id === id) {
-                self.emp= angular.copy(self.emps[i]);
-//                self.company.active=self.emps[i].active+'';
+                self.emp=angular.copy(self.emps[i]);
+                console.log(self.emps[i].company);
+                	var id=self.emps[i].company.id;
+                		self.emp.company=angular.copy(self.emps[i].company);
+                for (i = 0; i < $scope.compArray.length; ++i) {
+                	if($scope.compArray[i].id==id){
+                		$scope.compArray[i]=self.emp.company;
+                	}
+                }
                 break;
             }
         }

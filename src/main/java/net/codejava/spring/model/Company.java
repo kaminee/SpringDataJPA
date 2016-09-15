@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "company")
 public class Company {
@@ -28,7 +31,8 @@ public class Company {
 	    @Column(name = "active")
 	    private boolean active;
 	    
-	    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "company", orphanRemoval = true)
+	    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY,mappedBy = "company", orphanRemoval = true)
+	    @JsonIgnore
 		private Collection<Employee> employees;
 	    
 	    public Integer getId() {
