@@ -36,8 +36,6 @@
                        <script data-require="angular-animate@1.2.11" data-semver="1.2.11" src="http://code.angularjs.org/1.2.11/angular-animate.min.js"></script>
                       <script src="<c:url value="/resources/js/controller/home.js" />"></script>
         
-      	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
-  				<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 				<script src="<c:url value="/resources/js/app.js" />"></script>
 <%--                 <script src="<c:url value="/resources/js/service/group_service.js" />"></script> --%>
 <%--              	<script src="<c:url value="/resources/js/controller/group_controller.js" />"></script> --%>

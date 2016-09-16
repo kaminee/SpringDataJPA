@@ -43,7 +43,7 @@ public class EmpController {
 	   }
 	 
 	  @RequestMapping(value = "create", method = RequestMethod.POST)
-	    public ResponseEntity<Void> createUser(@RequestBody Employee employee,    UriComponentsBuilder ucBuilder) {
+	    public ResponseEntity<Void> createUser(@RequestBody Employee employee,UriComponentsBuilder ucBuilder) {
 	        System.out.println("Creating Emp " + employee.getFirstname());
 	 
 	        employeeService.create(employee);

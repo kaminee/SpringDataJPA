@@ -23,6 +23,7 @@
      <mapping class="net.codejava.spring.model.User"/>
      <mapping class="net.codejava.spring.model.Company"/> 
           <mapping class="net.codejava.spring.model.Employee"/> 
+               <mapping class="net.codejava.spring.model.Meeting"/> 
      
     <!-- <mapping resource="net/codejava/spring/model/User.hbm.xml"/>
     <mapping resource="net/codejava/spring/model/Country.hbm.xml"/> -->
