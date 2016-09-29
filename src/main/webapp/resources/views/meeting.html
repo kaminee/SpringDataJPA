@@ -1,4 +1,3 @@
-<h1>emp List page</h1>
 <!-- {{shopList}} -->
 
     <style>
@@ -26,7 +25,7 @@
 
       <div class="generic-container">
           <div class="panel panel-default">
-              <div class="panel-heading"><span class="lead">Meeting Form </span></div>
+              <div class="panel-heading"><span class="lead">Meeting Form2 </span></div>
               <div class="formcontainer">
                   <form ng-submit="mctrl.submit()" name="myForm" class="form-horizontal">
                       <input type="hidden" ng-model="mctrl.meeting.meetingId" />
@@ -95,9 +94,9 @@
                      
               
              
+<!--                            {{meetingList}} -->
               
               <div class="panel-heading"><span class="lead">List of emps </span></div>
-          
               <div class="tablecontainer">
              
                   <table class="table table-hover">
@@ -105,20 +104,21 @@
                           <tr>
                               <th>ID.</th>
                               <th>Meeting Subject</th>
-                              <th>Date</th>
+<!--                               <th>Date</th> -->
                               <th>Employees</th>
                               
                               <th width="20%"></th>
                           </tr>
                       </thead>
                       <tbody>
-                     
+                  
                           <tr ng-repeat="s in meetingList">
                        
                               <td><span ng-bind="s.meetingId"></span></td>
                               <td><span ng-bind="s.subject"></span></td>
 <!--                               <td><span ng-bind="s.meetingDate"></span></td> -->
-                              <td><span ng-bind="s.employee.firstname"></span></td>
+                              <td><span ng-bind-template="{{s.employees[0].firstname}} {{s.employees[0].lastname}}"></span></td>
+<!--                               <p ng-bind-template="{{s.employees[0].firstname}} {{s.employees[0].firstname}}"></p> -->
                               
                               <td>
                               <button type="button" ng-click="mctrl.edit(s.meetingId)" class="btn btn-success custom-width">Edit</button>  <button type="button" ng-click="mctrl.remove(s.meetingId)" class="btn btn-danger custom-width">Remove</button>

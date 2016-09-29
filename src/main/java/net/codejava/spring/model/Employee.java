@@ -44,7 +44,7 @@ public class Employee {
 	private Company company;
 	
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany(cascade = {CascadeType.ALL},fetch=FetchType.EAGER)
 	@JoinTable(name="employee_meeting", 
 				joinColumns={@JoinColumn(name="employee_id")}, 
 				inverseJoinColumns={@JoinColumn(name="meeting_id")})

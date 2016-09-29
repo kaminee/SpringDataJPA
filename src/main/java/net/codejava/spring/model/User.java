@@ -1,58 +1,61 @@
 package net.codejava.spring.model;
 
-import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Component
-
 @Entity
-@Table(name = "USERS")
-public class User implements Serializable{
-	
-	
-	@Id 
-	@GeneratedValue
-	@Column(name = "user_id")
+@Table(name = "users")
+public class User{
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
-	@Column(name = "username")
 	private String username;
-	 
-	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "email")
+	
+	@ManyToMany
+	@JoinTable(name="UsersAndRoles",
+			joinColumns=@JoinColumn(name="user_id"),
+			inverseJoinColumns=@JoinColumn(name="role_id"))
+	private Set<Role> roles = new HashSet<Role>();
+
+	
+	@Column(nullable=false, length=1)
+	@Enumerated(EnumType.STRING)
+	private UserStatus status;
+	
+	/*@Column(name = "email")
 	private String email;
 	
 	@Column(name = "address")
 	private String address;
 	
-/*	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.LAZY )
-    @JoinTable(name="COUNTRY",
-        joinColumns = @JoinColumn(name="country_id"),
-        inverseJoinColumns = @JoinColumn(name="country_id")
-    )*/
-/*	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "country_id")
-	private Country country;
-	*/
 	
-	private long countryId;
+	private long countryId;*/
+
+	public User(){}
+
+	public User(int id, String username, String password, Set<Role> roles,
+			UserStatus status) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
+		this.status = status;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -77,37 +80,21 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
+
+	public UserStatus getStatus() {
+		return status;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setStatus(UserStatus status) {
+		this.status = status;
 	}
 
-	public String getAddress() {
-		return address;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
-
-	/*public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}*/
-
-	public long getCountryId() {
-		return countryId;
-	}
-
-	public void setCountryId(long countryId) {
-		this.countryId = countryId;
-	}
-
 	
 }

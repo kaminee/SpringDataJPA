@@ -65,6 +65,8 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
             		console.log("empty");
             	}else{
             		self.meetings = d;
+                    console.log("d===>"+self.meetings.meetingId+"\t "+self.meetings.subject);
+
                 	$scope.meetingList=angular.copy(d);
 //                	console.log("\n\t self.users-->"+self.group.length+"\t angular.copy---->"+angular.copy(d));
                 	

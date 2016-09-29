@@ -1,11 +1,11 @@
 package net.codejava.spring.model;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -26,7 +26,10 @@ public class Meeting {
 /*	@Column(name="meeting_date")
 	private Date meetingDate;
 	*/
-	@ManyToMany(mappedBy="meetings")
+	public Meeting() {
+		// TODO Auto-generated constructor stub
+	}
+	@ManyToMany(mappedBy="meetings",fetch=FetchType.EAGER)
 	private Set<Employee> employees = new HashSet<Employee>();
 	
 	public Meeting(String subject) {

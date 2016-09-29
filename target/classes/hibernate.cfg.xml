@@ -21,7 +21,9 @@
 <!--         <property name="hibernate.hbm2ddl.auto">create-drop</property> -->
      <mapping class="net.codejava.spring.model.Country"/>
      <mapping class="net.codejava.spring.model.User"/>
-     <mapping class="net.codejava.spring.model.Company"/> 
+          <mapping class="net.codejava.spring.model.Company"/> 
+     
+     <mapping class="net.codejava.spring.model.Role"/> 
           <mapping class="net.codejava.spring.model.Employee"/> 
                <mapping class="net.codejava.spring.model.Meeting"/> 
      

@@ -57,6 +57,8 @@ public class EmpController {
 	   @RequestMapping(value = "/emp", method = RequestMethod.GET)
 	    public ResponseEntity<List<Employee>> listAllUsers() {
 			List<Employee> employees = employeeService.findAll();
+			
+			
 	        if(employees.isEmpty()){
 	            return new ResponseEntity<List<Employee>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
 	        }

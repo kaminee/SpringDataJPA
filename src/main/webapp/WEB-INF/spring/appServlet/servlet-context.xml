@@ -14,6 +14,8 @@ xmlns="http://www.springframework.org/schema/beans"
     http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
     http://www.springframework.org/schema/tx 
     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+    http://www.springframework.org/schema/lang 
+    http://www.springframework.org/schema/lang/spring-lang.xsd
     http://www.springframework.org/schema/context 
     http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
@@ -48,7 +50,7 @@ xmlns="http://www.springframework.org/schema/beans"
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5432/test_db"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/test_app"/>
         <property name="username" value="postgres"/>
         <property name="password" value="altimetrik"/>
     </bean>	
@@ -68,6 +70,11 @@ xmlns="http://www.springframework.org/schema/beans"
     </bean>
      -->
  	
+	<!-- <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+	    <property name="userDetailsService" ref="userDetailsService" />
+	    
+	</bean> -->
+<!-- <bean id="springSecurityFilterChain" class="org.springframework.web.filter.DelegatingFilterProxy"/> -->
 
 
  <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -76,10 +83,14 @@ xmlns="http://www.springframework.org/schema/beans"
       <property name="jpaVendorAdapter">
          <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
       </property>
+      
       <property name="jpaProperties">
          <props>
 <!--             <prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
-            <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+          <!--   <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+             <prop key="hibernate.show_sql">true</prop> -->
+              <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+             <prop key="spring.jpa.show-sql">true</prop>
          </props>
       </property>
    </bean>
@@ -95,6 +106,29 @@ xmlns="http://www.springframework.org/schema/beans"
    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
    	
+   	
+   		<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
+	
+	<bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="language" />
+	</bean>
+	
+	<bean id="handlerMapping"
+    	class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	    <property name="interceptors">
+	        <ref bean="localeChangeInterceptor" />
+	    </property>    
+	</bean>
    <!-- 	<bean id="userDao" class="net.codejava.spring.dao.UserDAOImpl">
 	    <constructor-arg>
 	        <ref bean="myEmf" />
