@@ -21,13 +21,18 @@
       .lastname.ng-dirty.ng-invalid-minlength {
           background-color: yellow;
       }
+.error-class {
+    color:red;
+} 
 
     </style>
 
       <div class="generic-container">
           <div class="panel panel-default">
-              <div class="panel-heading"><span class="lead">Employee Registration Form </span></div>
+              <div class="panel-heading"><span class="lead">Employee Registration Form2 </span></div>
               <div class="formcontainer">
+              <sec:authorize access="hasRole('Admin')">
+              
                   <form ng-submit="ectrl.submit()" name="myForm" class="form-horizontal">
                       <input type="hidden" ng-model="ectrl.emp.employeeId" />
 						<div class="row">
@@ -65,8 +70,13 @@
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="file">cellphone</label>
 								<div class="col-md-7">
-									<input type="text" ng-model="ectrl.emp.cellphone" class="form-control input-sm" placeholder="Enter your Cell phone [This field is validation free]" />
+<!-- 									<input type="number" ng-model="ectrl.emp.cellphone" min="0" max="9999999999" class="form-control input-sm" placeholder="Enter your Cell phone [This field is validation free]" required/> -->
+							<input type="text" class="form-control form-profile-input" maxlength="10" ng-pattern="/^(0?)[1-9]{1}\d{9}$/"
+									ng-model="ectrl.emp.cellphone" name="cellphone" required/>
+                                <div class="error-class" ng-show="myForm.cellphone.$error.pattern">Cell number should be valid 10 digit</div>
+							
 								</div>
+								
 							</div>
 						</div>
 
@@ -90,6 +100,7 @@
 						</div>
 
 					</form>
+					</sec:authorize>
                      </div>
                      </div>
                      
@@ -117,7 +128,7 @@
                      
                           <tr ng-repeat="s in employeeList">
                        
-                              <td><span ng-bind="s.id"></span></td>
+                              <td><span ng-bind="s.employeeId"></span></td>
                               <td><span ng-bind="s.firstname"></span></td>
                               <td><span ng-bind="s.lastname"></span></td>
                               <td><span ng-bind="s.birthDate"></span></td>
@@ -125,7 +136,7 @@
                               <td><span ng-bind="s.company.name"></span></td>
                               
                               <td>
-                              <button type="button" ng-click="ectrl.edit(s.id)" class="btn btn-success custom-width">Edit</button>  <button type="button" ng-click="ectrl.remove(s.id)" class="btn btn-danger custom-width">Remove</button>
+                              <button type="button" ng-click="ectrl.edit(s.employeeId)" class="btn btn-success custom-width">Edit</button>  <button type="button" ng-click="ectrl.remove(s.id)" class="btn btn-danger custom-width">Remove</button>
                               </td>
                           </tr>
                       </tbody>

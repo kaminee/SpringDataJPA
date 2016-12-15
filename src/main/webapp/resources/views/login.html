@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 
-<!-- <html> -->
 <head>
 <meta charset="ISO-8859-1">
 <title>Login Page</title>
@@ -42,7 +41,7 @@
 	There was a problem logging in. Please try again.
 </div>
 <form role="form" ng-submit="login()">
-	<!-- <div class="form-group">
+	<div class="form-group">
 		<label for="username">Username:</label> <input type="text"
 			class="form-control" id="username" name="username" ng-model="credentials.username"/>
 	</div>
@@ -50,7 +49,7 @@
 		<label for="password">Password:</label> <input type="password"
 			class="form-control" id="password" name="password" ng-model="credentials.password"/>
 	</div>
-	<button type="submit" class="btn btn-primary">Submit</button> -->
+	<button type="submit" class="btn btn-primary">Submit</button>
 	<h1>Spring Security Custom Login Form (XML)</h1>
 
 	<div id="login-box">
@@ -89,5 +88,71 @@
 	</div>
 </form>
 	
-<!-- </body> -->
-<!-- </html> -->
+ -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="myUserApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Login</title>
+  <script src="resources/js/vendor/jquery.min.js"></script>
+  <script src="resources/js/vendor/bootstrap.min.js"></script>
+  <link href="resources/css/app.css" rel="stylesheet"></link>
+ <link rel="stylesheet" href="resources/css/vendor/bootstrap.min.css">
+</head>
+<body onload='document.loginForm.j_username.focus();'>
+
+<h3>Custom Login Page</h3>
+
+<div class="col-md-offset-3">
+<div class="col-md-6">
+       <div class="generic-container">
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead">Sign In </span></div>
+                            <div class="formcontainer">
+              
+				<form name='loginForm' action="j_spring_security_check" method='POST'>
+ 						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="file">User Name</label>
+								<div class="col-md-7">
+								<input type='text' name='j_username' value='' placeholder="Enter username" required ng-minlength="3" ng-model="data.username" >
+								</div>
+								</div>
+								</div>
+								
+								<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="file">Password</label>
+								<div class="col-md-7">
+								<input type='text' name='j_password' value='' placeholder="Enter password" required ng-minlength="3" ng-model="data.pass">
+								</div>
+								</div>
+								</div>
+								
+								<div class="row">
+							<div class="form-actions">
+								<input type="submit" value="submit" class="btn btn-primary btn-sm" >
+								<input name="reset" type="reset" class="btn btn-primary btn-sm"/>			
+												</div>
+						</div>
+
+  
+ 
+ 
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+				<script src="resources/js/vendor/angular.js"></script>
+              	<script src="resources/js/vendor/angular-route.min.js"></script>
+              <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+              	
+                <script data-require="angular-animate@1.2.11" data-semver="1.2.11" src="resources/js/vendor/angular-animate.min.js"></script>
+				<script src="resources/js/app.js"></script>
+				<script src="resources/js/controller/home.js"></script>
+</body>
+</html>

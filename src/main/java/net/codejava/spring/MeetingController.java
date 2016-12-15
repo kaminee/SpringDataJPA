@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import net.codejava.spring.dao.GuiFormService;
+import net.codejava.spring.model.GuiForm;
 import net.codejava.spring.model.Meeting;
 import net.codejava.spring.services.MeetingService;
 
@@ -27,6 +29,10 @@ public class MeetingController {
 	
 	@Autowired
 	private MeetingService meetingService;
+	
+
+	@Autowired
+	private GuiFormService guiFormService;
 	
 	@RequestMapping(value = "/fetch", method = RequestMethod.GET)
 	@ResponseBody
@@ -44,6 +50,10 @@ public class MeetingController {
 	  @RequestMapping(value = "create", method = RequestMethod.POST)
 	    public ResponseEntity<Void> createUser(@RequestBody Meeting meeting,UriComponentsBuilder ucBuilder) {
 	        System.out.println("Creating Meeting " + meeting.getSubject());
+	        System.out.println("meeting emp size "+meeting.getEmployees().size());
+//	        Set<Employee> empList=meeting.getEmployees();
+//	        meeting.setEmployees(empList);
+	        
 	        meetingService.create(meeting);
 	        HttpHeaders headers = new HttpHeaders();
 //	        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
@@ -70,10 +80,23 @@ public class MeetingController {
 	        return new ResponseEntity<Meeting>(meeting, HttpStatus.OK);
 	    }
 	    
+	    @RequestMapping(value = "/remove/{id}", method = RequestMethod.PUT)
+	    public ResponseEntity<Meeting> deMeeting(@PathVariable("id") long id) {
+	        System.out.println("DELETE Meeting " + id);
+	        meetingService.delete(id);
+	        return new ResponseEntity<Meeting>(HttpStatus.OK);
+	    }
 	    
 		 @RequestMapping(value = "/loadUsers", method = RequestMethod.GET)
 		   public String printHello1(ModelMap model) {
 		      model.addAttribute("message", "Hello Spring MVC Framework!");
 		      return "meeting";
 		   }
+		 
+			@RequestMapping(value = "/byformtype/{type}", method = RequestMethod.GET)
+			@ResponseBody
+			public List<GuiForm>  listOfFieldsByType(@PathVariable("type") String type) {      
+				List<GuiForm> listFormFields = guiFormService.findByGuiType(type);
+			    return listFormFields;
+			}
 }

@@ -17,7 +17,7 @@ public class HomeController {
 	@RequestMapping(value="/")
 	public ModelAndView home() {
 //		List<User> listUsers = userDao.list();
-		System.out.println("\n\t\t ...loading home page....");
+		System.out.println("\n\t\t ...loading home page...12.");
 		ModelAndView model = new ModelAndView("home");
 //		model.addObject("userList", listUsers);
 		return model;

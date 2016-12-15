@@ -25,7 +25,7 @@
 			  
 			    <div class="col-md-8">
 			      <div class="navbar-header">
-			      <a class="navbar-brand" href="#">Kamini's Application</a>
+			      <a class="navbar-brand" href="#">Test Application</a>
 			    </div>
 			     <ul class="nav navbar-nav">
 <!-- 			      <li class="active"><a ui-sref="#">Home</a></li> -->

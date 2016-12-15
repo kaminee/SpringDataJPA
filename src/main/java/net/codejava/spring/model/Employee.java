@@ -44,10 +44,14 @@ public class Employee {
 	private Company company;
 	
 	
-	@ManyToMany(cascade = {CascadeType.ALL},fetch=FetchType.EAGER)
+	/*@ManyToMany(cascade = {CascadeType.ALL},fetch=FetchType.EAGER)
 	@JoinTable(name="employee_meeting", 
-				joinColumns={@JoinColumn(name="employee_id")}, 
-				inverseJoinColumns={@JoinColumn(name="meeting_id")})
+				joinColumns={@JoinColumn(name="employee_id", referencedColumnName = "employee_id")}, 
+				inverseJoinColumns={@JoinColumn(name="meeting_id", referencedColumnName = "meeting_id")})
+	private Set<Meeting> meetings = new HashSet<Meeting>();*/
+	
+	
+	@ManyToMany(mappedBy="employees",fetch=FetchType.EAGER)
 	private Set<Meeting> meetings = new HashSet<Meeting>();
 	
 	public Employee() {

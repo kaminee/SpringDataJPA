@@ -25,7 +25,7 @@
 
       <div class="generic-container">
           <div class="panel panel-default">
-              <div class="panel-heading"><span class="lead">Meeting Form2 </span></div>
+              <div class="panel-heading"><span class="lead">Meeting Form</span></div>
               <div class="formcontainer">
                   <form ng-submit="mctrl.submit()" name="myForm" class="form-horizontal">
                       <input type="hidden" ng-model="mctrl.meeting.meetingId" />
@@ -75,9 +75,11 @@
 								<!--                                     <select ng-model="ctrl.group.users" name="" class="select input-sm" ng-options="ctr.id as ctr.username for ctr in userArray track by ctr.id" ng-change="GetValue(ctrl.group.users)"> -->
 		
 								<select ng-model="mctrl.selEmployee" name="" class="select input-sm" ng-options="ctr.firstname for ctr in emplArray"
-									ng-change="GetValue(mctrl.selEmployee)">
+									ng-change="GetValue(mctrl.selEmployee)" 
+									multiple="multiple">
+									
 									<option value="">--Select--</option>
-								</select> Selected Value is:{{ectrl.emp.id}}
+								</select> <!-- Selected Value multipleSelectis:{{mctrl.selEmployee}} -->
 							</div>
 						</div>
 		
@@ -88,6 +90,8 @@
 							</div>
 						</div>
 
+
+
 					</form>
                      </div>
                      </div>
@@ -96,35 +100,52 @@
              
 <!--                            {{meetingList}} -->
               
-              <div class="panel-heading"><span class="lead">List of emps </span></div>
+              <div class="panel-heading"><span class="lead">List of Meetings </span></div>
               <div class="tablecontainer">
              
-                  <table class="table table-hover">
-                      <thead>
+                  <table class="table table-hover">  <thead>
+                <tr>
+                    <th class="EmpId"> <a href="#" ng-click="sort('id',$event)">ID
+                         <span class="{{Header[0]}}"></span>
+                         </a>
+
+                    </th>
+                    <th class="name"> <a ng-click="sort('subject')" href="#"> Meeting Subject
+                         <span class="{{Header[1]}}"></span></a>
+                    </th>
+                    <th class="Email"> <a ng-click="sort('employees')" href="#"> Employees
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
+                </tr>
+            </thead>
+                    <!--   <thead>
                           <tr>
                               <th>ID.</th>
                               <th>Meeting Subject</th>
-<!--                               <th>Date</th> -->
                               <th>Employees</th>
                               
                               <th width="20%"></th>
                           </tr>
-                      </thead>
-                      <tbody>
-                  
-                          <tr ng-repeat="s in meetingList">
-                       
-                              <td><span ng-bind="s.meetingId"></span></td>
-                              <td><span ng-bind="s.subject"></span></td>
+                      </thead> -->
+              <tbody>
+          
+                  <tr ng-repeat="s in meetingList">
+               
+                      <td><span ng-bind="s.meetingId"></span></td>
+                      <td><span ng-bind="s.subject"></span></td>
 <!--                               <td><span ng-bind="s.meetingDate"></span></td> -->
-                              <td><span ng-bind-template="{{s.employees[0].firstname}} {{s.employees[0].lastname}}"></span></td>
+<td>
+								<span ng-repeat="emp in s.employees">
+								<span ng-bind-template="{{s.employees[0].firstname}} {{s.employees[0].lastname}}"></span>
+								</span></td>
+<!--                               <td><span ng-bind-template="{{s.employees[0].firstname}} {{s.employees[0].lastname}}"></span></td> -->
 <!--                               <p ng-bind-template="{{s.employees[0].firstname}} {{s.employees[0].firstname}}"></p> -->
-                              
-                              <td>
-                              <button type="button" ng-click="mctrl.edit(s.meetingId)" class="btn btn-success custom-width">Edit</button>  <button type="button" ng-click="mctrl.remove(s.meetingId)" class="btn btn-danger custom-width">Remove</button>
-                              </td>
-                          </tr>
-                      </tbody>
+                      
+                      <td>
+                      <button type="button" ng-click="mctrl.edit(s.meetingId)" class="btn btn-success custom-width">Edit</button>  <button type="button" ng-click="mctrl.remove(s.meetingId)" class="btn btn-danger custom-width">Remove</button>
+                      </td>
+                  </tr>
+              </tbody>
                   </table>
               </div>
          

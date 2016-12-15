@@ -1,15 +1,19 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Login Page</title>
- <script src="<c:url value='/resources/js/vendor/jquery.min.js'/>"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+  <script src="<c:url value='/resources/js/vendor/jquery.min.js'/>"></script>
   <script src="<c:url value='/resources/js/vendor/bootstrap.min.js'/>"></script>
   <link href="<c:url value='/resources/css/app.css' />" rel="stylesheet"></link>
-  <link rel="stylesheet" href="<c:url value='/resources/css/vendor/bootstrap.min.css' />">
+ <link rel="stylesheet" href="<c:url value='/resources/css/vendor/bootstrap.min.css' />">
 </head>
 <body onload='document.loginForm.j_username.focus();'>
+
 <h3>Custom Login Page</h3>
- 
 <%
  
 String errorString = (String)request.getAttribute("error");
@@ -24,8 +28,7 @@ out.println("Incorrect login name or password. Please retry using correct login 
               <div class="panel-heading"><span class="lead">Sign In </span></div>
                             <div class="formcontainer">
               
-<form name='loginForm' action="<c:url value='j_spring_security_check' />"
-method='POST'>
+<form name='loginForm' action="<c:url value='j_spring_security_check' />" method='POST'>
  						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="file">User Name</label>
@@ -50,12 +53,12 @@ method='POST'>
 								<input name="reset" type="reset" class="btn btn-primary btn-sm"/>			
 												</div>
 						</div>
-					
-						
-						
+
+  
+ 
 <!-- <table>
 <tr>
-<td>Username :</td>
+<td>User Name:</td>
 <td><input type='text' name='j_username' value=''>
 </td>
 </tr>
@@ -72,7 +75,7 @@ value="submit" />
 </td>
 </tr>
 </table> -->
- 
+ 
 </form>
 </div>
 </div>

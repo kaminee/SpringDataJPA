@@ -1,0 +1,53 @@
+<!-- {{shopList}} -->
+
+    <style>
+      .firstname.ng-valid {
+          background-color: lightgreen;
+      }
+      .firstname.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+      .firstname.ng-dirty.ng-invalid-minlength {
+          background-color: yellow;
+      }
+      
+	.lastname.ng-valid {
+          background-color: lightgreen;
+      }
+      .lastname.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+      .lastname.ng-dirty.ng-invalid-minlength {
+          background-color: yellow;
+      }
+
+    </style>
+
+      <div class="generic-container">
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead">GUI Form</span></div>
+              <div class="formcontainer">
+                  <form ng-submit="gctrl.submit()" name="myForm" class="form-horizontal">
+<!--                       <input type="hidden" ng-model="guictrl.guiForm.guiId" /> -->
+
+
+						<div class="row" ng-repeat="g in guiFieldsList">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="file">{{g.fieldName}}</label>
+								<div class="col-md-7">
+									<input type="{{g.fieldType}}" name="{{g.fieldName}}" placeholder="Enter {{g.fieldName}}"
+										class="firstname form-control input-sm" required
+										ng-minlength="3" />
+								</div>
+							</div>
+						</div>
+
+
+			</form>
+                     </div>
+                     </div>
+                     
+              
+              </div>
+         
+ </div>

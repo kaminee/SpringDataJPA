@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingService','$http', function($scope, MeetingService,$http) {
+angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingService','$http', '$filter', function($scope, MeetingService,$http ,$filter ) {
 	console.log("\n\t stareted ");
 
 	var self = this;
@@ -17,8 +17,13 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
 //	$scope.users=[];
 	$scope.countemps=[];
     $scope.meetingArray = [];
-
+    $scope.pageSize = 4;
+    $scope.reverse = false;
+    var iconName='';
     $scope.empsarrayele = [];
+    $scope.searchText = '';
+    $scope.currentPage = 0;
+    $scope.Header = ['', '', ''];
  /*   $http({
             method: 'GET',
             url: 'http://localhost:8080/SpringMvcHibernateXML/meeting/fetch'
@@ -38,11 +43,12 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
     $scope.emplArray = result;
 });
     
-    
+//    fetchGuiForm();
     fetchAllMeetings();
 //    fetchAllEmployeeMeeting();
     
     $scope.GetValue = function (count) {
+    	$scope.empsarrayele = [];
     	console.log("count======"+count)
     	console.log("count======"+count.id)
 //    	 $scope.countusers = count.id;
@@ -50,7 +56,7 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
     	 $scope.countemps=count;
     		console.log("$scope.empsarrayele======"+$scope.empsarrayele)
 //    	 console.log("scope.name = "+count.name);
-    	 
+    		self.meeting.employees=count;
 //    	 console.log("\n\t $scope.id "+$scope.id+"\t ==="+$scope.name);
     	 
     	}
@@ -69,7 +75,8 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
 
                 	$scope.meetingList=angular.copy(d);
 //                	console.log("\n\t self.users-->"+self.group.length+"\t angular.copy---->"+angular.copy(d));
-                	
+                    $scope.filteredList = angular.copy(d);
+
                 	$scope.temp = angular.fromJson(d);
                 	
 //                	console.log("\n\t $scope.temp-->"+$scope.temp.country);
@@ -112,9 +119,9 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
     }
 
     function createMeeting(meeting){
-    	console.log("Selected Value: " +$scope.countemps + "\nSelected Text: "+$scope.empsarrayele );
+    	console.log("Selected Value: " +$scope.countemps + "\nSelected Text: "+$scope.empsarrayele[0].firstname );
 
-    	meeting.employees=$scope.empsarrayele;
+//    	meeting.employees=$scope.empsarrayele;
 
     	MeetingService.createMeeting(meeting)
             .then(
@@ -140,14 +147,14 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
     }
 
     function deleteMeeting(id){
-       /* UserService.deleteUser(id)
+    	MeetingService.deleteMeeting(id)
             .then(
-            fetchAllUsers,
+            		fetchAllMeetings,
             function(errResponse){
                 console.error('Error while deleting User');
             }
-        );*/
-    	  $http({
+        );
+    	 /* $http({
               method: 'DELETE',
               url: 'http://localhost:8080/SpringMVCHibernate/meeting/' + id,
             
@@ -159,7 +166,7 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
               console.log(response.data);
           }, function(rejection) {
               console.log(rejection.data);
-          });
+          });*/
     }
 
     function submit() {
@@ -186,10 +193,10 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
     }
 
     function remove(id){
-        console.log('id to be deleted', id);
-        if(self.meeting.id === id) {//clean form if the user to be deleted is shown there.
+        console.log('id to be deletedss', id);
+       /* if(self.meeting.id === id) {//clean form if the user to be deleted is shown there.
             reset();
-        }
+        }*/
         deleteMeeting(id);
     }
 
@@ -200,5 +207,66 @@ angular.module('myUserApp').controller('MeetingController', ['$scope', 'MeetingS
 //        self.meeting={meetingId:null,subject:'',meetingDate:null,employees:[]};
         $scope.myForm.$setPristine(); //reset Form
     }
+
+    // Calculate Total Number of Pages based on Search Result
+    $scope.pagination = function () {
+        $scope.ItemsByPage = MeetingService.paged($scope.filteredList, $scope.pageSize);
+    };
+
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+    };
+
+    $scope.firstPage = function () {
+        $scope.currentPage = 0;
+    };
+
+    $scope.lastPage = function () {
+        $scope.currentPage = $scope.ItemsByPage.length - 1;
+    };
+
+    
+    
+    $scope.sort = function (sortBy) {
+//        $scope.resetAll();
+
+        $scope.columnToOrder = sortBy;
+
+        //$Filter - Standard Service
+        $scope.filteredList = $filter('orderBy')($scope.filteredList, $scope.columnToOrder, $scope.reverse);
+
+        if ($scope.reverse) iconName = 'glyphicon glyphicon-chevron-up';
+        else iconName = 'glyphicon glyphicon-chevron-down';
+
+        if (sortBy === 'id') {
+            $scope.Header[0] = iconName;
+        } else if (sortBy === 'subject') {
+            $scope.Header[1] = iconName;
+        } else {
+            $scope.Header[2] = iconName;
+        }
+
+        $scope.reverse = !$scope.reverse;
+
+        $scope.pagination();
+    };
+
+    //By Default sort ny Name
+    $scope.sort('subject');
+    
+
+    $scope.range = function (input, total) {
+        var ret = [];
+        if (!total) {
+            total = input;
+            input = 0;
+        }
+        for (var i = input; i < total; i++) {
+            if (i != 0 && i != total - 1) {
+                ret.push(i);
+            }
+        }
+        return ret;
+    };
 
 }]);

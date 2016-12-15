@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myUserApp').controller('EmployeeController', ['$scope', 'EmployeeService','$http', function($scope, EmployeeService,$http) {
-	console.log("\n\t stareted ");
+	console.log("\n\t stareted "+name);
 
 	var self = this;
    self.emp={employeeId:null,firstname:'',lastname:'',cellphone:'',company:[]};
@@ -102,8 +102,9 @@ angular.module('myUserApp').controller('EmployeeController', ['$scope', 'Employe
     function edit(id){
         console.log('id to be edited', id);
         for(var i = 0; i < self.emps.length; i++){
-        	console.log("active==="+self.emps[i].firstname);
-            if(self.emps[i].id === id) {
+            if(self.emps[i].employeeId == id) {
+            	console.log("active==="+self.emps[i].firstname);
+
                 self.emp=angular.copy(self.emps[i]);
                 console.log(self.emps[i].company);
                 	var id=self.emps[i].company.id;
@@ -120,7 +121,7 @@ angular.module('myUserApp').controller('EmployeeController', ['$scope', 'Employe
 
     function remove(id){
         console.log('id to be deleted', id);
-        if(self.emp.id === id) {//clean form if the user to be deleted is shown there.
+        if(self.emp.employeeId === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
         deleteCompany(id);

@@ -3,11 +3,14 @@ package net.codejava.spring.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -17,7 +20,7 @@ public class Meeting {
 
 	@Id
 	@Column(name="meeting_id")
-	@GeneratedValue
+	@GeneratedValue//(strategy = GenerationType.IDENTITY)
 	private Long meetingId;
 
 	@Column(name="subject")
@@ -29,7 +32,16 @@ public class Meeting {
 	public Meeting() {
 		// TODO Auto-generated constructor stub
 	}
-	@ManyToMany(mappedBy="meetings",fetch=FetchType.EAGER)
+	
+	
+	/*@ManyToMany(mappedBy="meetings",fetch=FetchType.EAGER)
+	private Set<Employee> employees = new HashSet<Employee>();
+	*/
+	
+	@ManyToMany(cascade = {CascadeType.MERGE},fetch=FetchType.EAGER)
+	@JoinTable(name="employee_meeting", 
+				joinColumns={@JoinColumn(name="meeting_id", referencedColumnName = "meeting_id")}, 
+				inverseJoinColumns={@JoinColumn(name="employee_id", referencedColumnName = "employee_id")})
 	private Set<Employee> employees = new HashSet<Employee>();
 	
 	public Meeting(String subject) {
@@ -37,6 +49,10 @@ public class Meeting {
 //		this.meetingDate = new Date();
 	}
 
+	
+	/*  public void addEmployee(Employee employee) {
+	        this.employees.add(employee);
+	    }*/
 	public Long getMeetingId() {
 		return meetingId;
 	}

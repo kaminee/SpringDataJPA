@@ -8,12 +8,41 @@ angular.module('myUserApp').factory('MeetingService', ['$http', '$q', function($
     		fetchAllMeetings: fetchAllMeetings,
 //    		fetchAllEmployeeMeeting:fetchAllEmployeeMeeting,
     		createMeeting: createMeeting,
-    		updateMeeting:updateMeeting
-//        deleteGroup:deleteGroup
+    		updateMeeting:updateMeeting,
+//    		searched:searched,
+    		paged:paged,
+    		deleteMeeting:deleteMeeting
+    		
     };
 
     return factory;
 
+
+    /*this.searched = function (valLists, toSearch) {
+        return _.filter(valLists,
+
+        function (i) {
+             Search Text in all 3 fields 
+            return searchUtil(i, toSearch);
+        });
+    };*/
+
+   function paged(valLists, pageSize) {
+      var retVal = [];
+      
+      if(valLists!=null){
+        for (var i = 0; i < valLists.length; i++) {
+            if (i % pageSize === 0) {
+                retVal[Math.floor(i / pageSize)] = [valLists[i]];
+            } else {
+                retVal[Math.floor(i / pageSize)].push(valLists[i]);
+            }
+        }
+      }
+        return retVal;
+    }
+   
+   
     function fetchAllMeetings() {
 //    	console.log("\n\t fetchAllGroups service 1");
         var deferred = $q.defer();
@@ -81,9 +110,9 @@ angular.module('myUserApp').factory('MeetingService', ['$http', '$q', function($
     }
 
     function deleteMeeting(id) {
-    	
+    	console.log("\n\t delete id"+id)
         var deferred = $q.defer();
-        $http.del(REST_SERVICE_URI+id).then(
+        $http.put(REST_SERVICE_URI+"remove/"+id).then(
             function (response) {
                 deferred.resolve(response.data);
             },
@@ -96,5 +125,7 @@ angular.module('myUserApp').factory('MeetingService', ['$http', '$q', function($
       
         return deferred.promise;
     }
+    
+ 
 
 }]);

@@ -1,0 +1,71 @@
+<!-- {{shopList}} -->
+
+    <style>
+      .firstname.ng-valid {
+          background-color: lightgreen;
+      }
+      .firstname.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+      .firstname.ng-dirty.ng-invalid-minlength {
+          background-color: yellow;
+      }
+      
+	.lastname.ng-valid {
+          background-color: lightgreen;
+      }
+      .lastname.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+      .lastname.ng-dirty.ng-invalid-minlength {
+          background-color: yellow;
+      }
+
+    </style>
+
+      <div class="generic-container">
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead">Booking Form</span></div>
+              <div class="formcontainer">
+                  <form ng-submit="bookctrl.submit()" name="myForm" class="form-horizontal">
+<!--                       <input type="hidden" ng-model="guictrl.guiForm.guiId" /> -->
+
+
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Select Booking Type</label>
+						<!--                                     <select ng-model="ctrl.group.users" name="" class="select input-sm" ng-options="ctr.id as ctr.username for ctr in userArray track by ctr.id" ng-change="GetValue(ctrl.group.users)"> -->
+
+						<select ng-model="bookctrl.bookingType" name="bookingType" class="select input-sm"
+						ng-change="GetValue(bookctrl.bookingType)" >
+
+							<option value="-1">--Select--</option>
+							<option value="hotel_booking">Hotel Booking</option>
+							<option value="flight_booking">Flight Booking</option>
+							
+						</select>
+						<!-- Selected Value multipleSelectis:{{mctrl.selEmployee}} -->
+					</div>
+				</div>
+
+
+				<div class="row" ng-repeat="g in guiFieldsList">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="file">{{g.fieldName}}</label>
+								<div class="col-md-7">
+									<input type="{{g.fieldType}}" name="{{g.fieldName}}" placeholder="Enter {{g.fieldName}}"
+										class="firstname form-control input-sm" required
+										ng-minlength="3" />
+								</div>
+							</div>
+						</div>
+
+
+			</form>
+                     </div>
+                     </div>
+                     
+              
+              </div>
+         
+ </div>
